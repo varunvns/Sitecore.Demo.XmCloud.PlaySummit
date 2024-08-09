@@ -22,7 +22,7 @@ const Section = (props: SectionProps): JSX.Element => {
   const [newsComponent, setNewsComponent] = useState(false);
   const [insightsComponent, setInsightsComponent] = useState(false);
 
-  const contentArray = props.rendering.placeholders['jss-section-content'];
+  const contentArray = props?.rendering?.placeholders['jss-section-content'];
 
   const compName = contentArray
     .filter((item) => 'componentName' in item) // Check if componentName exists
@@ -34,15 +34,17 @@ const Section = (props: SectionProps): JSX.Element => {
   });
 
   const newsCompHeading = (a: string) => {
-    compName[0].toLowerCase().trim() === a.toLowerCase().trim() ? setNewsComponent(true) : false;
+    compName[0]?.toLowerCase()?.trim() === a?.toLowerCase()?.trim()
+      ? setNewsComponent(true)
+      : false;
   };
   const fInsightsHeading = (a: string) => {
-    compName[0].toLowerCase().trim() === a.toLowerCase().trim()
+    compName[0]?.toLowerCase()?.trim() === a?.toLowerCase()?.trim()
       ? setInsightsComponent(true)
       : false;
   };
 
-  const titleAndContentAndCta = props.fields && (
+  const titleAndContentAndCta = props?.fields && (
     <div className={insightsComponent ? 'container' : ''}>
       <div
         className={
@@ -55,7 +57,7 @@ const Section = (props: SectionProps): JSX.Element => {
       >
         <Text
           tag="h2"
-          field={props.fields.title}
+          field={props?.fields?.title}
           className={
             newsComponent
               ? 'NewsHeading '

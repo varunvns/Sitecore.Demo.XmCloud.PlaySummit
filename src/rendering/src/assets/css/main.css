@@ -194,3 +194,16 @@
 /* 9. Other styles */
 
 @import '../../../node_modules/react-loading-skeleton/dist/skeleton.css';
+
+/* 10. Custom Fonts */
+
+@layer base {
+  @font-face {
+    font-family: 'Pilat Wide';
+    src: url('/assets/fonts/PilatWide-Regular.woff2') format('woff2'),
+      url('/assets/fonts/PilatWide-Regular.woff') format('woff'),
+      url('/assets/fonts/PilatWide-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+}
