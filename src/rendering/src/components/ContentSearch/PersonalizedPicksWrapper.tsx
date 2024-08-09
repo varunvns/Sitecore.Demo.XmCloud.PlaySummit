@@ -1,5 +1,3 @@
-import { LayoutServicePageState, useSitecoreContext } from '@sitecore-jss/sitecore-jss-nextjs';
-import { isSearchSDKEnabled } from '../../services/SearchSDKService';
 import PersonalizedPicks from './PersonalizedPicks';
 import { ComponentProps } from 'lib/component-props';
 import Link from 'next/link';
@@ -10,23 +8,38 @@ export type PersonalizedPicksWrapperProps = ComponentProps & {
     styles: string;
   };
 };
+type ComponentFields = {
+  id: string;
+  displayName?: string;
+  fields: {
+    description: { value: string };
+    image_url: { value: string };
+    name: { value: string };
+  };
+  url?: string;
+};
+
+type PersonalizedPick = ComponentFields;
 
 const PersonalizedPicksWrapper = (props: PersonalizedPicksWrapperProps) => {
-  const { sitecoreContext } = useSitecoreContext();
-  const isPageEditing = sitecoreContext.pageState === LayoutServicePageState.Edit;
+  const fieldsAsPersonalizedPick: { Cards: PersonalizedPick[] }[] = [
+    props.rendering.fields,
+  ] as unknown as { Cards: PersonalizedPick[] }[];
 
-  return isSearchSDKEnabled && !isPageEditing ? (
-    <PersonalizedPicks
-      itemsToDisplay={props.params.Items ? Number(props.params.Items) : 4}
-      sxaStyles={props.params.styles}
-      rfkId="rfkid_pp"
-    />
+  return fieldsAsPersonalizedPick ? (
+    <>
+      <PersonalizedPicks
+        sxaStyles={props?.params?.styles}
+        abc={fieldsAsPersonalizedPick}
+        rfkId="rfkid_pp"
+      />
+    </>
   ) : (
     <>
       <div className="container">
         <div className="featuredItems flex flex-col lg:flex-row justify-between items-center mb-[32px]">
           <h2 className="featured-heading text-[50px] font-bold md:text-[68px] leading-[48px] md:leading-[60px] text-center text-black uppercase ">
-            Featured Insights
+            Featured Insights{' '}
           </h2>
           <div className="mt-5 lg:mt-0">
             <Link href={'/insights'} className="dpworld-btn ">

@@ -1,65 +1,45 @@
-import type { SearchResultsInitialState, SearchResultsWidgetQuery } from '@sitecore-search/react';
-import { WidgetDataType, useSearchResults, widget } from '@sitecore-search/react';
-import Link from 'next/link';
-
-import { getAbsoluteUrlPath } from '../../helpers/UrlHelper';
+import { WidgetDataType, widget } from '@sitecore-search/react';
+import { Image } from '@sitecore-jss/sitecore-jss-nextjs';
 
 type PersonalizedPick = {
   id: string;
-  source_id?: string;
-  type?: string;
-  name?: string;
-  description?: string;
+  displayName?: string;
+  fields: {
+    description: { value: string };
+    image_url: { value: string };
+    name: { value: string };
+  };
   url?: string;
-  image_url?: string;
 };
 
 export type PersonalizedPicksProps = {
   title?: string;
   itemsToDisplay?: number;
   sxaStyles?: string;
+  abc?: { Cards: PersonalizedPick[] }[];
 };
 
-type InitialState = SearchResultsInitialState<'itemsPerPage'>;
-
-const PersonalizedPicks = ({ itemsToDisplay = 6, sxaStyles = '' }: PersonalizedPicksProps) => {
-  const {
-    widgetRef,
-    actions: { onItemClick },
-    queryResult: { isLoading, isFetching, data: { content: items = [] } = {} },
-  } = useSearchResults<PersonalizedPick, InitialState>({
-    query: (query: SearchResultsWidgetQuery) => query,
-    state: {
-      itemsPerPage: itemsToDisplay,
-    },
-  });
-
-  const fallbackImageURL = 'https://placehold.co/500x300?text=No%20Image';
-
-  // Hide personalized picks when processing
-  if (isLoading || isFetching) {
-    return null;
-  }
-
+const PersonalizedPicks = ({ sxaStyles = '', abc }: PersonalizedPicksProps) => {
+  const cards = abc[0]?.Cards || [];
   return (
-    <div className={`personalized-picks ${sxaStyles}`} ref={widgetRef}>
-      <div className="container">
-        {items.map((item, index) => (
-          <div key={item.id}>
-            <Link
-              href={getAbsoluteUrlPath(item?.url)}
-              className="item"
-              onClick={() => onItemClick({ index, id: item.id, sourceId: item?.source_id })}
-            >
-              <img
-                className="item-image"
-                src={item?.image_url || fallbackImageURL}
-                alt={item?.description || `${item?.type} image`}
+    <div className={`personalized-picks ${sxaStyles}`} data-abc={JSON.stringify(abc)}>
+      <div className="container flex justify-between gap-4 flex-wrap">
+        {cards.map((item: PersonalizedPick) => (
+          <div key={item?.id} className="flex flex-col w-full">
+            <a className="item flex flex-col h-full text-decoration-none" href="#">
+              <Image
+                className="item-image w-full h-auto"
+                field={item?.fields?.image_url}
+                alt={item?.displayName}
               />
-              <span className="item-name">{item?.name}</span>
-              <span className="item-desscription mb-[20px]">{item?.description}</span>
+              <span className="item-name text-xl font-bold mt-2 flex-grow">
+                {item?.fields?.name?.value}
+              </span>
+              <span className="item-desscription mb-5 text-base mt-2 flex-grow">
+                {item?.fields?.description?.value}
+              </span>
               <button className="dpworld-btn">Read more</button>
-            </Link>
+            </a>
           </div>
         ))}
       </div>
