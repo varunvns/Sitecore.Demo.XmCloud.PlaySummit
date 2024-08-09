@@ -10,13 +10,13 @@
     flex: 1 0 auto;
 
     img.item-image {
-      @apply w-full md:w-[40%];
+      @apply w-full md:w-[40%] md:min-w-[270px];
     }
 
     div.item-data {
-      @apply w-full md:w-[50%] md:pr-[40px] lg:pr-[60px] pb-[20px] md:pb-[40px];
+      @apply w-full md:w-[50%] md:pr-[40px] lg:pr-[0px] pb-[20px] md:pb-[40px];
       h3 {
-        @apply text-[#000] font-bold mb-[28px] md:mb-[32px] leading-[28px] md:leading-[36px] text-[24px] md:text-[28px];
+        @apply text-[#000] font-bold mb-[28px] md:mb-[32px] leading-[28px] md:leading-[36px] text-[24px] xl:text-[28px];
       }
       a.item-data-button {
         font-weight: bold;
