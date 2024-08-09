@@ -16,7 +16,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const email = data.email;
     // Hardcoded email details
     const fromAddress = 'kgholap@horizontal.com';
-    const toAddress = 'vthakur@horizontal.com';
+    // const toAddress = 'vthakur@horizontal.com';
+    const toAddress = 'kunalghlp@gmail.com';
     const subject = 'Test Email';
     const text = `Hey Vikas, This is a test email sent from Kunal for DP World POC work.\n Test Form email:- ${email}`;
 
