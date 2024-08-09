@@ -16,3 +16,27 @@ body {
     font-size: 20px;
   }
 }
+
+@layer base {
+  h1 {
+    @apply font-pilat;
+  }
+  h2 {
+    @apply font-pilat;
+  }
+  h3 {
+    @apply font-pilat;
+  }
+  h4 {
+    @apply font-pilat;
+  }
+  h5 {
+    @apply font-pilat;
+  }
+  h6 {
+    @apply font-pilat;
+  }
+  p {
+    @apply font-pilat;
+  }
+}
