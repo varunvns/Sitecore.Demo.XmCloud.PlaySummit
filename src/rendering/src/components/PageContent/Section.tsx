@@ -62,7 +62,7 @@ const Section = (props: SectionProps): JSX.Element => {
             newsComponent
               ? 'NewsHeading '
               : insightsComponent
-              ? ' featured-heading text-[50px] font-bold md:text-[68px] leading-[48px] md:leading-[60px] text-center text-black uppercase  '
+              ? ' featured-heading text-[40px] font-bold md:text-[68px] leading-[48px] md:leading-[60px] text-center text-black uppercase  '
               : ' ' + ' section-content-title'
           }
         />
