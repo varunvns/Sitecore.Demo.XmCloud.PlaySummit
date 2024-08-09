@@ -16,13 +16,13 @@ export type PersonalizedPicksProps = {
   title?: string;
   itemsToDisplay?: number;
   sxaStyles?: string;
-  abc?: { Cards: PersonalizedPick[] }[];
+  card?: { Cards: PersonalizedPick[] }[];
 };
 
-const PersonalizedPicks = ({ sxaStyles = '', abc }: PersonalizedPicksProps) => {
-  const cards = abc[0]?.Cards || [];
+const PersonalizedPicks = ({ sxaStyles = '', card }: PersonalizedPicksProps) => {
+  const cards = card[0]?.Cards || [];
   return (
-    <div className={`personalized-picks ${sxaStyles}`} data-abc={JSON.stringify(abc)}>
+    <div className={`personalized-picks ${sxaStyles}`} data-card={JSON.stringify(card)}>
       <div className="container flex justify-between gap-4 flex-wrap">
         {cards.map((item: PersonalizedPick) => (
           <div key={item?.id} className="flex flex-col w-full">

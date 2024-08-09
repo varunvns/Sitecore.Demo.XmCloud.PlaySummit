@@ -29,7 +29,7 @@ const PersonalizedPicksWrapper = (props: PersonalizedPicksWrapperProps) => {
     <>
       <PersonalizedPicks
         sxaStyles={props?.params?.styles}
-        abc={fieldsAsPersonalizedPick}
+        card={fieldsAsPersonalizedPick}
         rfkId="rfkid_pp"
       />
     </>
