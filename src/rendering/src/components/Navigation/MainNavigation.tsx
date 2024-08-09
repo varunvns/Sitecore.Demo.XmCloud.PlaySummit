@@ -116,13 +116,13 @@ const MainNavigation = (props: MainNavigationProps): JSX.Element => {
             ))}
             {navbarOpen && (
               <li className="text-menu-item block lg:hidden">
-                <form onSubmit={HandleSubmit} className="pr-4">
+                <form onSubmit={HandleSubmit} className="pr-4" autoComplete="off">
                   <input
                     type="text"
                     name="search"
                     value={InputText}
                     placeholder="Search..."
-                    className="border-0  border-b-2 border-b-white focus:outline-0 w-full bg-transparent text-white placeholder:text-white-lighter"
+                    className="border-0  border-b-2 border-b-white focus:outline-0 w-full bg-transparent text-white placeholder:text-white-lighter autofill:bg-transparent"
                     id="search"
                     onChange={HandleInputText}
                   />
@@ -173,13 +173,13 @@ const MainNavigation = (props: MainNavigationProps): JSX.Element => {
           SearchOpen ? 'top-0 lg:top-full' : 'top-0'
         }`}
       >
-        <form onSubmit={HandleSubmit} className="container mx-auto px-24">
+        <form onSubmit={HandleSubmit} className="container mx-auto px-24" autoComplete="off">
           <input
             type="text"
             name="search"
             placeholder="Search..."
             value={InputText}
-            className="border-0  border-b-2 border-b-white focus:outline-0 w-full bg-[#1E1450] text-white placeholder:text-white-lighter"
+            className="border-0  border-b-2 border-b-white focus:outline-0 w-full bg-[#1E1450] text-white placeholder:text-white-lighter autofill:bg-transparent"
             id="search"
             onChange={HandleInputText}
           />
