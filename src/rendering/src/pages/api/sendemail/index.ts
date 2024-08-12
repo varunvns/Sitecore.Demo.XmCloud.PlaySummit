@@ -20,19 +20,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const subject = 'Test Email';
     let text = '';
     if (!data.email.includes('@horizontal.com')) {
-      const response = await fetch('/api/sendemail2', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
-      console.log('Data : ', response);
-      if (response.ok) {
-        console.log(data.message);
-      } else {
-        console.log(data.error);
-      }
+      text =
+        `Hi M,
+We have received an enquiry from a prospect with email ` +
+        data.email +
+        ` and DP World AI <has qualified | has not qualified> it with below reason.
+<reason text from API call>
+Best
+DP World AI`;
     } else {
       text =
         `Hi M,
