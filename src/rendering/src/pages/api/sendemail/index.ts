@@ -15,10 +15,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const data = req.body;
     console.log('Data Email : ', data.email);
     const fromAddress = 'kgholap@horizontal.com';
-    // const toAddress = 'vthakur@horizontal.com';
     const toAddress = 'kunalghlp@gmail.com';
     const subject = 'Test Email';
     let text = '';
+
     if (data.email.includes('saad.khan@horizontal.com')) {
       text =
         `Hi M,
@@ -38,15 +38,17 @@ DP World AI`;
           // body: JSON.stringify({ email: data.email }),
         });
 
-        const data = await apiResponse.json();
-      console.log('Data : ', apiResponse);
-      if (apiResponse.ok) {
-        console.log(data.message);
-      } else {
-        console.log(data.error);
+        const apiData = await apiResponse.json(); // Rename the second 'data' variable to 'apiData'
+        console.log('Data : ', apiResponse);
+
+        if (apiResponse.ok) {
+          console.log(apiData.message);
+        } else {
+          console.log(apiData.error);
+        }
+      } catch (error) {
+        console.log('An error occurred while sending the email.');
       }
-    } catch (error) {
-      console.log('An error occurred while sending the email.');
     }
 
     try {
