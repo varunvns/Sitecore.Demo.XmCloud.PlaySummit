@@ -15,11 +15,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const data = req.body;
     console.log('Data Email : ', data.email);
     const fromAddress = 'kgholap@horizontal.com';
+    // const toAddress = 'vthakur@horizontal.com';
     const toAddress = 'kunalghlp@gmail.com';
     const subject = 'Test Email';
     let text = '';
-
-    if (data.email.includes('saad.khan@horizontal.com')) {
+    if (data.email.includes('@horizontal.com')) {
       text =
         `Hi M,
 We have received an enquiry from an existing customer from the US with email ` +
@@ -28,28 +28,17 @@ We have received an enquiry from an existing customer from the US with email ` +
 Best
 DP World AI`;
     } else {
-      try {
-        // New API Call
-        const apiResponse = await fetch('/api/sendemaildummy', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          // body: JSON.stringify({ email: data.email }),
-        });
-
-        const apiData = await apiResponse.json(); // Rename the second 'data' variable to 'apiData'
-        console.log('Data : ', apiResponse);
-
-        if (apiResponse.ok) {
-          console.log(apiData.message);
-        } else {
-          console.log(apiData.error);
-        }
-      } catch (error) {
-        console.log('An error occurred while sending the email.');
-      }
+      text =
+        `Hi M,
+We have received an enquiry from a prospect with email ` +
+        data.email +
+        ` and DP World AI <has qualified | has not qualified> it with below reason.
+<reason text from API call>
+Best
+DP World AI`;
     }
+
+    console.log(req);
 
     try {
       await sendgrid.send({
