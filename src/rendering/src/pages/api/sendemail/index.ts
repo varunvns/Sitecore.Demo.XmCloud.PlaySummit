@@ -19,16 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const toAddress = 'kunalghlp@gmail.com';
     const subject = 'Test Email';
     let text = '';
-    if (data.email.includes('@horizontal.com')) {
-      text =
-        `Hi M,
-We have received an enquiry from a prospect with email ` +
-        data.email +
-        ` and DP World AI <has qualified | has not qualified> it with below reason.
-<reason text from API call>
-Best
-DP World AI`;
-    } else {
+    if (!data.email.includes('@horizontal.com')) {
       const response = await fetch('/api/sendemail2', {
         method: 'POST',
         headers: {
@@ -42,6 +33,14 @@ DP World AI`;
       } else {
         console.log(data.error);
       }
+    } else {
+      text =
+        `Hi M,
+We have received an enquiry from an existing customer from the US with email ` +
+        data.email +
+        `. Our record shows they have availed Freight Forwarding services before.
+Best
+DP World AI`;
     }
 
     console.log(req);
