@@ -12,11 +12,15 @@ type Data = {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
     // Hardcoded email details
+    const data = req.body;
     const fromAddress = 'kgholap@horizontal.com';
     // const toAddress = 'vthakur@horizontal.com';
     const toAddress = 'kunalghlp@gmail.com';
     const subject = 'Test Email';
-    const text = `Hey Kunal, This is a test email sent from Kunal for DP World POC work.`;
+    const text =
+      `Hey Kunal, This is a test email sent from Kunal for DP World POC work. Inquiry email is ` +
+      data.email +
+      ` mentioned.`;
 
     console.log(req);
 
