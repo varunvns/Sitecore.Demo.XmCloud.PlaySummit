@@ -19,16 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const toAddress = 'kunalghlp@gmail.com';
     const subject = 'Test Email';
     let text = '';
-    if (!data.email.includes('@horizontal.com')) {
-      text =
-        `Hi M,
-We have received an enquiry from a prospect with email ` +
-        data.email +
-        ` and DP World AI <has qualified | has not qualified> it with below reason.
-<reason text from API call>
-Best
-DP World AI`;
-    } else {
+    if (data.email.includes('saad.khan@horizontal.com')) {
       text =
         `Hi M,
 We have received an enquiry from an existing customer from the US with email ` +
@@ -36,9 +27,35 @@ We have received an enquiry from an existing customer from the US with email ` +
         `. Our record shows they have availed Freight Forwarding services before.
 Best
 DP World AI`;
-    }
+    } else {
+      try {
+        // New API Call
+        const apiResponse = await fetch('/api/sendemaildummy', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          // body: JSON.stringify({ email: data.email }),
+        });
 
-    console.log(req);
+        const apiData = await apiResponse.json();
+        const qualification = apiData.qualified ? 'has qualified' : 'has not qualified';
+        const reason = apiData.reason || 'No reason provided';
+
+        text =
+          `Hi M,
+We have received an enquiry from a prospect with email ` +
+          data.email +
+          ` and DP World AI ${qualification} it with the following reason:
+${reason}
+Best
+DP World AI`;
+      } catch (error) {
+        console.error('Error calling the API:', error);
+        res.status(500).json({ error: 'Failed to call the new API.' });
+        return;
+      }
+    }
 
     try {
       await sendgrid.send({
