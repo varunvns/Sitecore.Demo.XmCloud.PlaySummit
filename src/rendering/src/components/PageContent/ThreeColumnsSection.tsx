@@ -35,7 +35,7 @@ const ThreeColumnsSection = ({ fields }: ThreeColumnsSectionProps): JSX.Element 
         <p className="dpworld-section-content-p">
           <Text field={fields.Subtitle} />
         </p>
-        <Link field={fields.cta} className="dpworld-btn" />
+        {fields?.cta?.value?.href !== '' && <Link field={fields.cta} className="dpworld-btn" />}
       </div>
     </section>
   );
