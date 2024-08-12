@@ -38,23 +38,15 @@ DP World AI`;
           // body: JSON.stringify({ email: data.email }),
         });
 
-        const apiData = await apiResponse.json();
-        const qualification = apiData.qualified ? 'has qualified' : 'has not qualified';
-        const reason = apiData.reason || 'No reason provided';
-
-        text =
-          `Hi M,
-We have received an enquiry from a prospect with email ` +
-          data.email +
-          ` and DP World AI ${qualification} it with the following reason:
-${reason}
-Best
-DP World AI`;
-      } catch (error) {
-        console.error('Error calling the API:', error);
-        res.status(500).json({ error: 'Failed to call the new API.' });
-        return;
+        const data = await apiResponse.json();
+      console.log('Data : ', apiResponse);
+      if (apiResponse.ok) {
+        console.log(data.message);
+      } else {
+        console.log(data.error);
       }
+    } catch (error) {
+      console.log('An error occurred while sending the email.');
     }
 
     try {
