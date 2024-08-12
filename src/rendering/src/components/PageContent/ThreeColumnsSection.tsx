@@ -4,6 +4,7 @@ import {
   Field,
   LinkField,
   ImageField,
+  Link,
   withDatasourceCheck,
 } from '@sitecore-jss/sitecore-jss-nextjs';
 
@@ -20,6 +21,7 @@ export type ThreeColumnsSectionProps = ComponentProps & {
     RightLogo: ImageField;
     RightTitle: Field<string>;
     RightLink: LinkField;
+    cta: LinkField;
   };
 };
 
@@ -33,7 +35,7 @@ const ThreeColumnsSection = ({ fields }: ThreeColumnsSectionProps): JSX.Element 
         <p className="dpworld-section-content-p">
           <Text field={fields.Subtitle} />
         </p>
-        <button className="dpworld-btn">Learn More About Us</button>
+        {fields?.cta?.value?.href !== '' && <Link field={fields.cta} className="dpworld-btn" />}
       </div>
     </section>
   );

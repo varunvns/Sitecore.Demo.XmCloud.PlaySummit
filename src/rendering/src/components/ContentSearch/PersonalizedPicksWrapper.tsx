@@ -1,3 +1,4 @@
+import { LinkField } from '@sitecore-jss/sitecore-jss-nextjs';
 import PersonalizedPicks from './PersonalizedPicks';
 import { ComponentProps } from 'lib/component-props';
 
@@ -14,6 +15,7 @@ type ComponentFields = {
     description: { value: string };
     image_url: { value: string };
     name: { value: string };
+    cta: LinkField;
   };
   url?: string;
 };
