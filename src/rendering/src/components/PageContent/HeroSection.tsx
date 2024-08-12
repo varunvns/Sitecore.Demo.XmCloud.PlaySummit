@@ -74,7 +74,7 @@ const HeroSection = (props: HeroProps): JSX.Element => {
               />
               <RichText field={props.fields.Body} tag="div" className="subtitle" />
             </div>
-            <div>
+            <div className="kunal1">
               <h1>Send Email Example</h1>
               <button
                 onClick={() => {

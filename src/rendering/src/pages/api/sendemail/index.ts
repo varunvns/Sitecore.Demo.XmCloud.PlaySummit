@@ -13,14 +13,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (req.method === 'POST') {
     // Hardcoded email details
     const data = req.body;
+    console.log('Data Email : ', data.email);
     const fromAddress = 'kgholap@horizontal.com';
     // const toAddress = 'vthakur@horizontal.com';
     const toAddress = 'kunalghlp@gmail.com';
     const subject = 'Test Email';
-    const text =
-      `Hey Kunal, This is a test email sent from Kunal for DP World POC work. Inquiry email is ` +
-      data.email +
-      ` mentioned.`;
+    let text = '';
+    if (!data.email.includes('@horizontal.com')) {
+      text =
+        `Hi M,
+We have received an enquiry from a prospect with email ` +
+        data.email +
+        ` and DP World AI <has qualified | has not qualified> it with below reason.
+<reason text from API call>
+Best
+DP World AI`;
+    } else {
+      text =
+        `Hi M,
+We have received an enquiry from an existing customer from the US with email ` +
+        data.email +
+        `. Our record shows they have availed Freight Forwarding services before.
+Best
+DP World AI`;
+    }
 
     console.log(req);
 
