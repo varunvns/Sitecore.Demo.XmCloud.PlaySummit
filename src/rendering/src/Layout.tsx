@@ -65,7 +65,7 @@ const Layout = ({ layoutData, headLinks }: LayoutProps): JSX.Element => {
       <Head>
         {/* DEMO TEAM CUSTOMIZATION - Use event name from context as the page title */}
         <title>{pageTitle}</title>
-        <link rel="icon" href={`${publicUrl}/favicon.ico`} />
+        <link rel="icon" href={`${publicUrl}/dpwfavc.png`} />
         {headLinks.map((headLink) => (
           <link rel={headLink.rel} key={headLink.href} href={headLink.href} />
         ))}
