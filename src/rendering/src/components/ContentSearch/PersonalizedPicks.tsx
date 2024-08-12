@@ -39,7 +39,9 @@ const PersonalizedPicks = ({ sxaStyles = '', card }: PersonalizedPicksProps) => 
               <span className="item-desscription mb-5 text-base mt-2 flex-grow">
                 {item?.fields?.description?.value}
               </span>
-              <Link field={item?.fields?.cta} className="dpworld-btn" />
+              {item?.fields?.cta?.value?.href !== '' && (
+                <Link field={item?.fields?.cta} className="dpworld-btn" />
+              )}
             </div>
           </div>
         ))}
