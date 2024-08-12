@@ -56,13 +56,13 @@ const Two_Col_Cards = (props: TwoColProps): JSX.Element => {
             )}
           </div>
           {props?.rendering?.fields?.Cards && (
-            <div className="TwoCol-Cards flex flex-col md:flex-row flex-grow w-full gap-5">
+            <div className="TwoCol-Cards flex flex-col md:flex-row flex-grow w-full gap-5 flex-wrap justify-evenly items-stretch">
               {props?.rendering?.fields?.Cards.map((item: Cards, index: number) => {
                 return (
-                  <div className="TwoCol-Card md:w-1/2" key={index}>
+                  <div className="TwoCol-Card w-full md:w-[45%] my-[20px] lg:my-[50px]" key={index}>
                     {item?.fields?.Image && (
                       <div className="cardImage w-full">
-                        <Image field={item?.fields?.Image} className={''} />
+                        <Image field={item?.fields?.Image} className={'max-w-full'} />
                       </div>
                     )}
                     <div className="article-detail pt-[30px]">
