@@ -45,7 +45,7 @@ const DataSection = (props: DataSectionProps): JSX.Element => {
             />
           </div>
           <div className="content-Image">
-            <Image field={props?.rendering?.fields?.Image} className="max-w-full" />
+            <Image field={props?.rendering?.fields?.Image} className="w-full" />
           </div>
         </div>
       )}
