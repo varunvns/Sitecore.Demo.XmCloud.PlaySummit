@@ -9,27 +9,43 @@ import {
 import { ComponentProps } from 'lib/component-props';
 import React from 'react';
 
+// Define the types for the rendering fields
+export type RenderingFields = {
+  Title: Field<string>;
+  Description: RichTextField;
+  Image: ImageField;
+};
+
+// Extend the ComponentProps to include the rendering object
 export type DataSectionProps = ComponentProps & {
-  fields: {
-    Image: ImageField;
-    Title: Field<string>;
-    Description: RichTextField;
+  rendering: {
+    fields: RenderingFields;
   };
 };
 
 const DataSection = (props: DataSectionProps): JSX.Element => {
   return (
-    <div className="ContentBlock-Section">
+    <div className="ContentBlock-Section container my-[50px] lg:my-[100px]">
       {props?.rendering?.fields && (
         <div className="content">
           <div className="content-Title">
-            <Text fields={props?.rendering?.fields?.Title} tag="p" />
+            <Text
+              field={props?.rendering?.fields?.Title}
+              tag="h2"
+              className={'text-[27px] lg:text-[37px] font-bold leading-[45px] mb-[25px] uppercase'}
+            />
           </div>
           <div className="content-Description">
-            <RichText fields={props?.rendering?.fields?.Description} tag="div" />
+            <RichText
+              field={props?.rendering?.fields?.Description}
+              tag="div"
+              className={
+                'text-[18px] font-normal leading-[28px] mb-[20px] text-[#555] text-justify'
+              }
+            />
           </div>
           <div className="content-Image">
-            <Image fields={props?.rendering?.fields?.Image} />
+            <Image field={props?.rendering?.fields?.Image} className="max-w-full" />
           </div>
         </div>
       )}
