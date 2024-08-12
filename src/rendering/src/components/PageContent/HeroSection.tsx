@@ -70,7 +70,7 @@ const HeroSection = (props: HeroProps): JSX.Element => {
               <Text
                 field={props.fields.Title}
                 tag="h3"
-                className="title !text-[47px] lg:!text-[60px]"
+                className="title !text-[28px] md:!text-[48px] lg:!text-[60px]"
               />
               <RichText field={props.fields.Body} tag="div" className="subtitle" />
             </div>
