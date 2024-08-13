@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const data = req.body;
 
     // Hardcoded email details
-    const toAddress = ['vshringarpure@horizontalintegration.com', 'vthakur@horizontal.com'];
+    const toAddress = ['vshringarpure@horizontalintegration.com', 'ataylor@horizontal.com', 'jvadher@horizontal.com', 'saad.khan@horizontal.com', 'vthakur@horizontal.com'];
     // const toAddress = 'kunalghlp@gmail.com';
 
     let subject = '';
