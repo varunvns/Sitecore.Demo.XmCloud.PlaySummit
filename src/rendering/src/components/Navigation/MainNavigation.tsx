@@ -46,6 +46,20 @@ const MainNavigation = (props: MainNavigationProps): JSX.Element => {
   const sxaStyles = `${props.params?.styles || ''}`;
   const [InputText, setInputText] = useState('');
   const [SearchOpen, setSearchOpen] = useState(false);
+  // const getPublicUrl = (): string => {
+  //   const DEFAULT_PUBLIC_URL = 'https://dpworld-xmc.vercel.app/';
+  //   let url = '';
+  //   if (typeof window !== 'undefined') {
+  //     url = window.location.protocol + '//' + window.location.host;
+  //   }
+  //   if (url === '') {
+  //     url = DEFAULT_PUBLIC_URL;
+  //   }
+
+  //   return url;
+  // };
+  // const publicUr = getPublicUrl();
+
   const HandleInputText = (event: ChangeEvent<HTMLInputElement>) => {
     const NewValue = event.target.value;
     setInputText(NewValue);
@@ -79,13 +93,7 @@ const MainNavigation = (props: MainNavigationProps): JSX.Element => {
               </Link> */}
             </div>
             <div className={'text-menu-item px-3 block lg:hidden'}>
-              <Link
-                href={
-                  '#'
-                  // props.fields?.data?.links?.children?.results?.field?.jsonValue?.value?.href ?? '#'
-                }
-                prefetch={false}
-              >
+              <Link href={`/contactus`}>
                 <NextImage src={call} width={22} height={22} alt="call icon" />
               </Link>
             </div>
@@ -154,13 +162,7 @@ const MainNavigation = (props: MainNavigationProps): JSX.Element => {
               </Link>
             </li>
             <li className={'text-menu-item md:px-3 hidden lg:block'}>
-              <Link
-                href={
-                  '#'
-                  // props.fields?.data?.links?.children?.results?.field?.jsonValue?.value?.href ?? '#'
-                }
-                prefetch={false}
-              >
+              <Link href={`/contactus`}>
                 <NextImage src={call} width={22} height={22} alt="call icon" />
               </Link>
             </li>
@@ -200,5 +202,4 @@ const MainNavigation = (props: MainNavigationProps): JSX.Element => {
     </nav>
   );
 };
-
 export const Default = MainNavigation;
