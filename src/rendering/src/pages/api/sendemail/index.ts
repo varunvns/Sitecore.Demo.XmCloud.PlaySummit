@@ -1,10 +1,12 @@
 /* eslint-disable */
+import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
-
+// import { useState } from 'react';
 
 const email = process.env.Mail;
 const pass = process.env.Mail_Key;
+// const [SendEmail, setSendEmail] = useState(false);
 
 type Data = {
   message?: string;
@@ -16,20 +18,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // Hardcoded email details
     const data = req.body;
     console.log('Data Email : ', data.email);
-    // const toAddress = 'vthakur@horizontal.com';
+    const toAddress = 'vthakur@horizontal.com';
+    const ccAddress = 'vikassinghv34@gmail.com';
     // const toAddress = 'kunalghlp@gmail.com';
-    const toAddress = data.email;
+    // const toAddress = data.email;
     const subject = 'Test Email';
     let text = '';
-    if (!data.email.includes('@horizontal.com')) {
-      text =
-        `Hi M,
+    if (!data.email.includes('saad.khan@horizontal.com')) {
+      axios.get('https://testapi-pied-gamma.vercel.app/api/completion').then((response) => {
+        if (response.status === 200) {
+          text =
+            `Hi M,
 We have received an enquiry from a prospect with email ` +
-        data.email +
-        ` and DP World AI <has qualified | has not qualified> it with below reason.
-<reason text from API call>
+            data.email +
+            ` and DP World AI <has qualified | has not qualified> it with below reason.
+Message:- ` +
+            data.message +
+            `
 Best
 DP World AI`;
+          console.log('Request was successful:', response.data);
+          // setSendEmail(true);
+        }
+      });
     } else {
       text =
         `Hi M,
@@ -38,6 +49,7 @@ We have received an enquiry from an existing customer from the US with email ` +
         `. Our record shows they have availed Freight Forwarding services before.
 Best
 DP World AI`;
+      // setSendEmail(true);
     }
 
     console.log(req);
@@ -52,9 +64,11 @@ DP World AI`;
           pass: pass, // app password
         },
       });
+      // SendEmail &&
       await transporter.sendMail({
         from: email,
         to: toAddress,
+        cc: ccAddress,
         subject: subject,
         text: text,
       });
