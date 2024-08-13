@@ -16,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     // Hardcoded email details
     const toAddress = ['vshringarpure@horizontalintegration.com', 'vthakur@horizontal.com'];
-    const ccAddress = 'vikassinghv34@gmail.com';
     // const toAddress = 'kunalghlp@gmail.com';
 
     let subject = '';
@@ -32,54 +31,41 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         .then((response) => {
           if (response.status === 200) {
             subject = 'Enquiry from New Prospect';
-            text =
-              `Hi Andy,
-We have received an enquiry from a prospect with email mailto:` +
-              data.email +
-              ` and DP World AI ${
-                response.data.success ? 'has qualified' : 'has not qualified'
-              } it with below reason.
-` +
-              response.data.message +
-              `
-Details submitted via Contact Us are:-
-
-First Name: ` +
-              data.firstname +
-              `
-            Last Name: ` +
-              data.surname +
-              `\nEmail: ` +
-              data.email +
-              `\nPhone Number: ` +
-              data.phone +
-              `\nCountry: ` +
-              data.country +
-              `\nMessage: ` +
-              data.message +
-              `
-
-Best
-DP World AI`;
+            text = `
+  <p>Hi Andy,</p>
+  <p>
+    We have received an enquiry from a prospect with email 
+    <a href="mailto:${data.email}">${data.email}</a> and DP World AI 
+   <strong> ${
+     response.data.result ? 'has qualified' : 'has not qualified'
+   }</strong> it with the below reason:
+  </p>
+  <p>${response.data.reason}</p>
+  <p>Details submitted via Contact Us are:</p>
+  <ul>
+    <li><strong>First Name:</strong> ${data.firstname}</li>
+    <li><strong>Last Name:</strong> ${data.surname}</li>
+    <li><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></li>
+    <li><strong>Phone Number:</strong> ${data.phone}</li>
+    <li><strong>Country:</strong> ${data.country}</li>
+    <li><strong>Message:</strong> ${data.message}</li>
+  </ul>
+  <p>Best,<br><strong>DP World AI</strong></p>
+`;
           }
         });
 
     if (data.email.includes('saad.khan@horizontal.com')) {
       subject = 'Enquiry from Existing User';
-      text =
-        `Hi Andy,
-        
-We have received an enquiry from an existing customer from the US with email mailto:` +
-        data.email +
-        `. Our record shows they have availed Freight Forwarding services before.
-Best
-DP World AI`;
+      text = ` <p>Hi Andy,</p>
+  <p>
+    We have received an enquiry from an existing customer from the US with email 
+    <a href="mailto:${data.email}">${data.email}</a>. Our record shows they have availed Freight Forwarding services before.
+  </p>
+  <p>Best,<br>DP World AI</p>
+`;
     } else {
-      // if (data.email.includes('@horizontal.com')) {
-      //   await StatusCheck('https://testapi-pied-gamma.vercel.app/api/completion');
-      // } else {
-      await StatusCheck('https://testapi-pied-gamma.vercel.app/api/completion');
-      // }
+      await StatusCheck('https://lead-qualifier-gamma.vercel.app/api/completion');
     }
 
     console.log(req);
@@ -98,9 +84,8 @@ DP World AI`;
       await transporter.sendMail({
         from: email,
         to: toAddress,
-        cc: ccAddress,
         subject: subject,
-        text: text,
+        html: text,
       });
       console.log('Email sent successfully'); // Log on success
       res.status(200).json({ message: 'Email sent successfully!' });
