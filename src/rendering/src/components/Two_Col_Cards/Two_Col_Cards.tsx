@@ -48,7 +48,7 @@ const Two_Col_Cards = (props: TwoColProps): JSX.Element => {
             {props?.rendering?.fields?.SubTitle?.value !== '' && (
               <Text
                 field={props?.rendering?.fields?.SubTitle}
-                tag="div"
+                tag="p"
                 className={
                   'text-[18px] font-normal leading-[28px] mb-[20px] text-[#555] text-justify'
                 }
@@ -56,44 +56,47 @@ const Two_Col_Cards = (props: TwoColProps): JSX.Element => {
             )}
           </div>
           {props?.rendering?.fields?.Cards && (
-            <div className="TwoCol-Cards flex flex-col md:flex-row flex-grow w-full gap-5 flex-wrap justify-evenly items-stretch">
+            <div className="TwoCol-Cards flex flex-col md:flex-row flex-grow w-full gap-4 flex-wrap justify-between">
               {props?.rendering?.fields?.Cards.map((item: Cards, index: number) => {
                 return (
-                  <div className="TwoCol-Card w-full md:w-[45%] my-[20px] lg:my-[50px]" key={index}>
+                  <div
+                    className="TwoCol-Card w-full md:w-[45%] my-[20px] md:my-[50px] flex flex-col h-full  "
+                    key={index}
+                  >
                     {item?.fields?.Image && (
                       <div className="cardImage w-full">
-                        <Image field={item?.fields?.Image} className={'max-w-full'} />
+                        <Image field={item?.fields?.Image} className={'max-w-full h-auto'} />
                       </div>
                     )}
-                    <div className="article-detail pt-[30px]">
-                      {item?.fields?.Title && (
-                        <div className="cardTitle">
-                          <Text
-                            field={item?.fields?.Title}
-                            tag="h2"
-                            className={
-                              'text-[24px] lg:text-[28px] font-bold leading-[32px] mb-[22px]'
-                            }
-                          />
-                        </div>
-                      )}
-                      {item?.fields?.Description && (
-                        <div className="cardDesc">
-                          <Text
-                            field={item?.fields?.Description}
-                            tag="p"
-                            className={
-                              'text-[16px] lg:text-[18px] font-normal leading-[28px] mb-[20px] text-[#555] '
-                            }
-                          />
-                        </div>
-                      )}
-                      {item?.fields?.CTA && (
-                        <div className="cardCTA">
-                          <Link field={item?.fields?.CTA} className="dpworld-btn" />
-                        </div>
-                      )}
-                    </div>
+                    {/* <div className="article-detail pt-[30px] flex-grow"> */}
+                    {item?.fields?.Title && (
+                      <div className="cardTitle  pt-[30px]  flex-grow">
+                        <Text
+                          field={item?.fields?.Title}
+                          tag="h2"
+                          className={
+                            'text-[24px] lg:text-[28px] font-bold leading-[32px] mb-[22px] h-full'
+                          }
+                        />
+                      </div>
+                    )}
+                    {item?.fields?.Description && (
+                      <div className="cardDesc h-auto flex-grow">
+                        <Text
+                          field={item?.fields?.Description}
+                          tag="p"
+                          className={
+                            'text-[16px] lg:text-[18px] font-normal leading-[28px] mb-[20px] text-[#555] h-full'
+                          }
+                        />
+                      </div>
+                    )}
+                    {item?.fields?.CTA && (
+                      <div className="cardCTA my-2">
+                        <Link field={item?.fields?.CTA} className="dpworld-btn" />
+                      </div>
+                    )}
+                    {/* </div> */}
                   </div>
                 );
               })}
