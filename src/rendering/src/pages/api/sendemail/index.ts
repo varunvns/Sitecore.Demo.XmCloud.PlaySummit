@@ -1,12 +1,9 @@
-/* eslint-disable */
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
-// import { useState } from 'react';
 
 const email = process.env.Mail;
 const pass = process.env.Mail_Key;
-// const [SendEmail, setSendEmail] = useState(false);
 
 type Data = {
   message?: string;
@@ -15,20 +12,24 @@ type Data = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
-    // Hardcoded email details
     const data = req.body;
-    console.log('Data Email : ', data.email);
+
+    // Hardcoded email details
     const toAddress = 'vthakur@horizontal.com';
     const ccAddress = 'vikassinghv34@gmail.com';
     // const toAddress = 'kunalghlp@gmail.com';
-    // const toAddress = data.email;
+
     const subject = 'Test Email';
     let text = '';
-    if (!data.email.includes('saad.khan@horizontal.com')) {
-      axios.get('https://testapi-pied-gamma.vercel.app/api/completion').then((response) => {
+
+    //If horizontal user fill the form then this function will trigger
+    const StatusCheck = async (api?: string) =>
+      await axios.get(api as string).then((response) => {
         if (response.status === 200) {
           text =
-            `Hi M,
+            `Hi ` +
+            data.firstname +
+            `,
 We have received an enquiry from a prospect with email ` +
             data.email +
             ` and DP World AI <has qualified | has not qualified> it with below reason.
@@ -38,18 +39,25 @@ Message:- ` +
 Best
 DP World AI`;
           console.log('Request was successful:', response.data);
-          // setSendEmail(true);
         }
       });
-    } else {
+
+    if (data.email.includes('saad.khan@horizontal.com')) {
       text =
-        `Hi M,
+        `Hi ` +
+        data.firstname +
+        `,
 We have received an enquiry from an existing customer from the US with email ` +
         data.email +
         `. Our record shows they have availed Freight Forwarding services before.
 Best
 DP World AI`;
-      // setSendEmail(true);
+    } else {
+      if (data.email.includes('@horizontal.com')) {
+        await StatusCheck('https://testapi-pied-gamma.vercel.app/api/completion');
+      } else {
+        await StatusCheck();
+      }
     }
 
     console.log(req);
@@ -64,7 +72,7 @@ DP World AI`;
           pass: pass, // app password
         },
       });
-      // SendEmail &&
+
       await transporter.sendMail({
         from: email,
         to: toAddress,
