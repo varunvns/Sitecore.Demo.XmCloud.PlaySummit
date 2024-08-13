@@ -2,11 +2,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
 
-// NodeMailer_Mail = vikassinghv34@gmail.com
-//   NodeMailer_Mail_Key=hcki oxla bkpn swhd
 
-const email = process.env.NodeMailer_Mail;
-const pass = process.env.NodeMailer_Mail_Key;
+const email = process.env.Mail;
+const pass = process.env.Mail_Key;
 
 type Data = {
   message?: string;
