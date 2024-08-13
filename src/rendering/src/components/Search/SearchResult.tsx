@@ -2,7 +2,6 @@ import { useSearchParams } from 'next/navigation';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import search from '../../assets/img/search.svg';
 import NextImage from 'next/image';
-// import SpinningLoader from './SpinningLoader';
 
 import { SearchResultData } from './SearchResult.mock-data';
 import Link from 'next/link';
@@ -76,27 +75,32 @@ const SearchResult = (): JSX.Element => {
           </button>
         </span>
       </form>
-      {loading && loadedResultsCount === 0 ? (
-        <div className="flex justify-center items-center py-10">
-          <SpinningLoader />
-        </div>
+      {filteredSearchResults.length == 0 ? (
+        <div className="text-3xl font-bold py-4">No result found.</div>
       ) : (
-        <div className="grid  gap-x-6 gap-y-6 py-6">
-          {filteredSearchResults.length != 0 &&
-            filteredSearchResults?.slice(0, loadedResultsCount)?.map((result, index: number) => {
-              return (
-                <div key={index} className="w-full p-2">
-                  <Link href={result.ResultLink.value} className="decoration-black underline">
-                    <h2 className="font-bold text-2xl ">{result.ResultTitle.value}</h2>
-                  </Link>
-                  <p>{result?.ResultDescription?.value}</p>
-                </div>
-              );
-            })}
-          {filteredSearchResults.length == 0 && (
-            <div className="text-3xl font-bold">No result found.</div>
+        <>
+          {loading && loadedResultsCount === 0 ? (
+            <div className="flex justify-center items-center py-10">
+              <SpinningLoader />
+            </div>
+          ) : (
+            <div className="grid  gap-x-6 gap-y-6 py-6">
+              {filteredSearchResults.length != 0 &&
+                filteredSearchResults
+                  ?.slice(0, loadedResultsCount)
+                  ?.map((result, index: number) => {
+                    return (
+                      <div key={index} className="w-full p-2">
+                        <Link href={result.ResultLink.value} className="decoration-black underline">
+                          <h2 className="font-bold text-2xl ">{result.ResultTitle.value}</h2>
+                        </Link>
+                        <p>{result?.ResultDescription?.value}</p>
+                      </div>
+                    );
+                  })}
+            </div>
           )}
-        </div>
+        </>
       )}
     </div>
   );
