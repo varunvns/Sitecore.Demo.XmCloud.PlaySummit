@@ -10,14 +10,6 @@ type Data = {
   error?: string;
 };
 
-type ResponseProps = {
-  success?: boolean;
-  message?: string;
-  status?: number;
-  result?: boolean;
-  reason?: string;
-};
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
     const data = req.body;
@@ -29,43 +21,48 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     let subject = '';
     let text = '';
-    const mail = 'mailto:' + data.email;
     //If horizontal user fill the form then this function will trigger
     const StatusCheck = async (api?: string) =>
-      await axios.get(api as string).then((response: ResponseProps) => {
-        if (response.status === 200) {
-          subject = 'Enquiry from New Prospect';
-          text =
-            `Hi Andy,
+      await axios
+        .post(api as string, {
+          method: 'POST',
+          email: data.email,
+          message: data.message,
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            subject = 'Enquiry from New Prospect';
+            text =
+              `Hi Andy,
 We have received an enquiry from a prospect with email mailto:` +
-            mail +
-            ` and DP World AI ${
-              response.success ? 'has qualified' : 'has not qualified'
-            } it with below reason.
+              data.email +
+              ` and DP World AI ${
+                response.data.success ? 'has qualified' : 'has not qualified'
+              } it with below reason.
 ` +
-            data.message +
-            `
+              response.data.message +
+              `
 Details submitted via Contact Us are:-
 
 First Name: ` +
-            data.firstname +
-            `
+              data.firstname +
+              `
             Last Name: ` +
-            data.surname +
-            `Email: ` +
-            mail +
-            `Phone Number: ` +
-            data.phone +
-            `Country: ` +
-            data.country +
-            `Message: ` +
-            data.message +
-            `
+              data.surname +
+              `\nEmail: ` +
+              data.email +
+              `\nPhone Number: ` +
+              data.phone +
+              `\nCountry: ` +
+              data.country +
+              `\nMessage: ` +
+              data.message +
+              `
 
 Best
 DP World AI`;
-        }
-      });
+          }
+        });
 
     if (data.email.includes('saad.khan@horizontal.com')) {
       subject = 'Enquiry from Existing User';
@@ -73,7 +70,7 @@ DP World AI`;
         `Hi Andy,
         
 We have received an enquiry from an existing customer from the US with email mailto:` +
-        mail +
+        data.email +
         `. Our record shows they have availed Freight Forwarding services before.
 Best
 DP World AI`;
