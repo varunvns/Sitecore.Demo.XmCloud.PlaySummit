@@ -1,8 +1,12 @@
 /* eslint-disable */
 import type { NextApiRequest, NextApiResponse } from 'next';
-import sendgrid from '@sendgrid/mail';
+import nodemailer from 'nodemailer';
 
-sendgrid.setApiKey(process.env.SENDGRID_API_KEY as string);
+// NodeMailer_Mail = vikassinghv34@gmail.com
+//   NodeMailer_Mail_Key=hcki oxla bkpn swhd
+
+const email = process.env.NodeMailer_Mail;
+const pass = process.env.NodeMailer_Mail_Key;
 
 type Data = {
   message?: string;
@@ -14,9 +18,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // Hardcoded email details
     const data = req.body;
     console.log('Data Email : ', data.email);
-    const fromAddress = 'kgholap@horizontal.com';
     // const toAddress = 'vthakur@horizontal.com';
-    const toAddress = 'kunalghlp@gmail.com';
+    // const toAddress = 'kunalghlp@gmail.com';
+    const toAddress = data.email;
     const subject = 'Test Email';
     let text = '';
     if (!data.email.includes('@horizontal.com')) {
@@ -41,8 +45,17 @@ DP World AI`;
     console.log(req);
 
     try {
-      await sendgrid.send({
-        from: fromAddress,
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // use SSL
+        auth: {
+          user: email, // email address
+          pass: pass, // app password
+        },
+      });
+      await transporter.sendMail({
+        from: email,
         to: toAddress,
         subject: subject,
         text: text,
