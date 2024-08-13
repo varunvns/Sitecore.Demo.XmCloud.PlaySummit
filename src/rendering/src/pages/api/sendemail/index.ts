@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const email = process.env.Mail;
 const pass = process.env.Mail_Key;
-const [SendEmail, setSendEmail] = useState(false);
+// const [SendEmail, setSendEmail] = useState(false);
 
 type Data = {
   message?: string;
@@ -38,7 +38,7 @@ Message:- ` +
 Best
 DP World AI`;
           console.log('Request was successful:', response.data);
-          setSendEmail(true);
+          // setSendEmail(true);
         }
       });
     } else {
@@ -49,7 +49,7 @@ We have received an enquiry from an existing customer from the US with email ` +
         `. Our record shows they have availed Freight Forwarding services before.
 Best
 DP World AI`;
-      setSendEmail(true);
+      // setSendEmail(true);
     }
 
     console.log(req);
@@ -64,14 +64,14 @@ DP World AI`;
           pass: pass, // app password
         },
       });
-      SendEmail &&
-        (await transporter.sendMail({
-          from: email,
-          to: toAddress,
-          cc: ccAddress,
-          subject: subject,
-          text: text,
-        }));
+      // SendEmail &&
+      await transporter.sendMail({
+        from: email,
+        to: toAddress,
+        cc: ccAddress,
+        subject: subject,
+        text: text,
+      });
       console.log('Email sent successfully'); // Log on success
       res.status(200).json({ message: 'Email sent successfully!' });
     } catch (error) {
