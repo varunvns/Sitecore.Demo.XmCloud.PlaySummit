@@ -2,7 +2,7 @@
 import axios from 'axios';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 const email = process.env.Mail;
 const pass = process.env.Mail_Key;
