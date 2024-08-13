@@ -10,56 +10,79 @@ type Data = {
   error?: string;
 };
 
+type ResponseProps = {
+  success?: boolean;
+  message?: string;
+  status?: number;
+  result?: boolean;
+  reason?: string;
+};
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (req.method === 'POST') {
     const data = req.body;
 
     // Hardcoded email details
-    const toAddress = 'vthakur@horizontal.com';
+    const toAddress = ['vshringarpure@horizontalintegration.com', 'vthakur@horizontal.com'];
     const ccAddress = 'vikassinghv34@gmail.com';
     // const toAddress = 'kunalghlp@gmail.com';
 
     let subject = '';
     let text = '';
-
+    const mail = 'mailto:' + data.email;
     //If horizontal user fill the form then this function will trigger
     const StatusCheck = async (api?: string) =>
-      await axios.get(api as string).then((response) => {
+      await axios.get(api as string).then((response: ResponseProps) => {
         if (response.status === 200) {
-          subject = 'Enquiry from Horizontal User';
+          subject = 'Enquiry from New Prospect';
           text =
-            `Hi ` +
-            data.firstname +
-            `,
+            `Hi Andy,
 We have received an enquiry from a prospect with email mailto:` +
-            data.email +
-            ` and DP World AI <has qualified | has not qualified> it with below reason.
-Message:- ` +
+            mail +
+            ` and DP World AI ${
+              response.success ? 'has qualified' : 'has not qualified'
+            } it with below reason.
+` +
             data.message +
             `
+Details submitted via Contact Us are:-
+
+First Name: ` +
+            data.firstname +
+            `
+            Last Name: ` +
+            data.surname +
+            `Email: ` +
+            mail +
+            `Phone Number: ` +
+            data.phone +
+            `Country: ` +
+            data.country +
+            `Message: ` +
+            data.message +
+            `
+
 Best
 DP World AI`;
-          console.log('Request was successful:', response.data);
         }
       });
 
     if (data.email.includes('saad.khan@horizontal.com')) {
       subject = 'Enquiry from Existing User';
       text =
-        `Hi ` +
-        data.firstname +
-        `,
+        `Hi Andy,
+        
 We have received an enquiry from an existing customer from the US with email mailto:` +
-        data.email +
+        mail +
         `. Our record shows they have availed Freight Forwarding services before.
 Best
 DP World AI`;
     } else {
-      if (data.email.includes('@horizontal.com')) {
-        await StatusCheck('https://testapi-pied-gamma.vercel.app/api/completion');
-      } else {
-        await StatusCheck();
-      }
+      // if (data.email.includes('@horizontal.com')) {
+      //   await StatusCheck('https://testapi-pied-gamma.vercel.app/api/completion');
+      // } else {
+      await StatusCheck('https://testapi-pied-gamma.vercel.app/api/completion');
+      // }
     }
 
     console.log(req);
