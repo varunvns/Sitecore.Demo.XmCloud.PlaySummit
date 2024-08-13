@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const subject = 'Test Email';
     let text = '';
     if (!data.email.includes('saad.khan@horizontal.com')) {
-      axios.get('https://testapi-pied-gamma.vercel.app/api/testing').then((response) => {
+      axios.get('https://testapi-pied-gamma.vercel.app/api/completion').then((response) => {
         if (response.status === 200) {
           text =
             `Hi M,
