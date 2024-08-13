@@ -19,18 +19,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const ccAddress = 'vikassinghv34@gmail.com';
     // const toAddress = 'kunalghlp@gmail.com';
 
-    const subject = 'Test Email';
+    let subject = '';
     let text = '';
 
     //If horizontal user fill the form then this function will trigger
     const StatusCheck = async (api?: string) =>
       await axios.get(api as string).then((response) => {
         if (response.status === 200) {
+          subject = 'Enquiry from Horizontal User';
           text =
             `Hi ` +
             data.firstname +
             `,
-We have received an enquiry from a prospect with email ` +
+We have received an enquiry from a prospect with email mailto:` +
             data.email +
             ` and DP World AI <has qualified | has not qualified> it with below reason.
 Message:- ` +
@@ -43,11 +44,12 @@ DP World AI`;
       });
 
     if (data.email.includes('saad.khan@horizontal.com')) {
+      subject = 'Enquiry from Existing User';
       text =
         `Hi ` +
         data.firstname +
         `,
-We have received an enquiry from an existing customer from the US with email ` +
+We have received an enquiry from an existing customer from the US with email mailto:` +
         data.email +
         `. Our record shows they have availed Freight Forwarding services before.
 Best
