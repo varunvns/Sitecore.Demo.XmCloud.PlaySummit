@@ -18,9 +18,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     // Hardcoded email details
     const data = req.body;
     console.log('Data Email : ', data.email);
-    // const toAddress = 'vthakur@horizontal.com';
+    const toAddress = 'vthakur@horizontal.com';
+    const ccAddress = 'vikassinghv34@gmail.com';
     // const toAddress = 'kunalghlp@gmail.com';
-    const toAddress = data.email;
+    // const toAddress = data.email;
     const subject = 'Test Email';
     let text = '';
     if (!data.email.includes('saad.khan@horizontal.com')) {
@@ -54,23 +55,23 @@ DP World AI`;
     console.log(req);
 
     try {
-      const transporter =
-        SendEmail &&
-        nodemailer.createTransport({
-          host: 'smtp.gmail.com',
-          port: 465,
-          secure: true, // use SSL
-          auth: {
-            user: email, // email address
-            pass: pass, // app password
-          },
-        });
-      await transporter.sendMail({
-        from: email,
-        to: toAddress,
-        subject: subject,
-        text: text,
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // use SSL
+        auth: {
+          user: email, // email address
+          pass: pass, // app password
+        },
       });
+      SendEmail &&
+        (await transporter.sendMail({
+          from: email,
+          to: toAddress,
+          cc: ccAddress,
+          subject: subject,
+          text: text,
+        }));
       console.log('Email sent successfully'); // Log on success
       res.status(200).json({ message: 'Email sent successfully!' });
     } catch (error) {
