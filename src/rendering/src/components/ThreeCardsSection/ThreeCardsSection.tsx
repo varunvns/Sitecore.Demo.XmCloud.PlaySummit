@@ -35,7 +35,7 @@ const ThreeCardsSection = (props: ThreeCardsProps): JSX.Element => {
             />
           </div>
           {props?.rendering?.fields?.Cards && (
-            <div className="ThreeCards-Cards flex flex-col md:flex-row flex-grow w-full flex-wrap justify-between items-stretch gap-4">
+            <div className="ThreeCards-Cards flex flex-col md:flex-row w-full flex-wrap justify-between items-stretch gap-4">
               {props?.rendering?.fields?.Cards.map((item: Cards, index: number) => {
                 return (
                   <div
@@ -43,11 +43,11 @@ const ThreeCardsSection = (props: ThreeCardsProps): JSX.Element => {
                     key={index}
                   >
                     {item?.fields?.Image && (
-                      <div className="cardImage w-max p-[20px] rounded-full bg-[#f8f8f8]">
+                      <div className="cardImage p-[20px] rounded-full bg-[#f8f8f8] h-[98px] w-[98px] place-content-center overflow-clip">
                         <Image field={item?.fields?.Image} className={'max-w-full rounded-full'} />
                       </div>
                     )}
-                    <div className="article-detail pt-[30px] md:py-[40px] md:px-[0px] w-full">
+                    <div className="article-detail pt-[30px] md:py-[40px] md:px-[20px] w-full">
                       {item?.fields?.Description && (
                         <div className="cardDesc">
                           <Text

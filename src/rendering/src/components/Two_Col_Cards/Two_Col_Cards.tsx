@@ -56,16 +56,16 @@ const Two_Col_Cards = (props: TwoColProps): JSX.Element => {
             )}
           </div>
           {props?.rendering?.fields?.Cards && (
-            <div className="TwoCol-Cards flex flex-col md:flex-row flex-grow w-full gap-4 flex-wrap justify-between">
+            <div className="TwoCol-Cards flex w-full gap-2 flex-wrap items-stretch justify-between">
               {props?.rendering?.fields?.Cards.map((item: Cards, index: number) => {
                 return (
                   <div
-                    className="TwoCol-Card w-full md:w-[45%] my-[20px] md:my-[50px] flex flex-col h-full  "
+                    className="TwoCol-Card w-full md:w-[49%] my-[20px] md:my-[50px] flex flex-col "
                     key={index}
                   >
                     {item?.fields?.Image && (
                       <div className="cardImage w-full">
-                        <Image field={item?.fields?.Image} className={'max-w-full h-auto'} />
+                        <Image field={item?.fields?.Image} className={'w-full'} />
                       </div>
                     )}
                     {/* <div className="article-detail pt-[30px] flex-grow"> */}
@@ -75,18 +75,18 @@ const Two_Col_Cards = (props: TwoColProps): JSX.Element => {
                           field={item?.fields?.Title}
                           tag="h2"
                           className={
-                            'text-[24px] lg:text-[28px] font-bold leading-[32px] mb-[22px] h-full'
+                            'text-[24px] lg:text-[28px] font-bold leading-[32px] mb-[22px]'
                           }
                         />
                       </div>
                     )}
                     {item?.fields?.Description && (
-                      <div className="cardDesc h-auto flex-grow">
+                      <div className="cardDesc flex-grow">
                         <Text
                           field={item?.fields?.Description}
                           tag="p"
                           className={
-                            'text-[16px] lg:text-[18px] font-normal leading-[28px] mb-[20px] text-[#555] h-full'
+                            'text-[16px] lg:text-[18px] font-normal leading-[28px] mb-[20px] text-[#555]'
                           }
                         />
                       </div>
