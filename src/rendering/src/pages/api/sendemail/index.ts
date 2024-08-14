@@ -65,10 +65,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       subject = 'Enquiry from Existing User';
       text = ` <p>Hi Andy,</p>
   <p>
-    We have received an enquiry from an existing customer from the US with email 
+    We have received an enquiry from an existing customer from the ${data.country} with email 
     <a href="mailto:${data.email}">${data.email}</a>. Our record shows they have availed Freight Forwarding services before.
   </p>
-  <p>Best,<br>DP World AI</p>
+  <p>Details submitted via Contact Us are:</p>
+  <ul>
+    <li><strong>First Name:</strong> ${data.firstname}</li>
+    <li><strong>Last Name:</strong> ${data.surname}</li>
+    <li><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></li>
+    <li><strong>Phone Number:</strong> ${data.phone}</li>
+    <li><strong>Country:</strong> ${data.country}</li>
+    <li><strong>Message:</strong> ${data.message}</li>
+  </ul>
+  <p>Best,<br><strong>DP World AI</strong></p>
 `;
     } else {
       await StatusCheck('https://lead-qualifier-gamma.vercel.app/api/completion');
